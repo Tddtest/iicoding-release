@@ -1,0 +1,30 @@
+{
+  "name": "@iicoding/release",
+  "version": "0.0.9",
+  "main": "dist/cjs/index.js",
+  "types": "dist/esm/index.d.ts",
+  "module": "dist/esm/index.js",
+  "repository": "git@github.com:Tddtest/release.git",
+  "author": "iiCoding <297854770@qq.com>",
+  "license": "MIT",
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
+  },
+  "scripts": {
+    "start:release": "pnpm run release",
+    "release": "ts-node script/release.ts",
+    "build": "pnpm run clean && father build",
+    "clean": "rimraf dist",
+    "rmn": "rimraf node_modules"
+  },
+  "dependencies": {
+    "@iicoding/utils": "0.0.34",
+    "inquirer": "^8.2.0",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/semver": "7.5.7"
+  }
+}
