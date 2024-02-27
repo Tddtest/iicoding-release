@@ -22,17 +22,17 @@ __export(eslint_exports, {
   eslint: () => eslint
 });
 module.exports = __toCommonJS(eslint_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var eslint = (lintFilePath = "./src", configFilePath = "./.eslintrc.js") => {
   return async (next, ...params) => {
     try {
-      const lintDir = (0, import_utils.getProjectPath)(lintFilePath);
-      const configFile = (0, import_utils.getProjectPath)(configFilePath);
-      await (0, import_utils.runAsync)(`eslint ${lintDir} --ext .ts,.tsx,.js,.jsx --fix --cache --config ${configFile}`);
-      import_utils.logger.succeed("eslint 校验通过");
+      const lintDir = (0, import_utils_node.getProjectPath)(lintFilePath);
+      const configFile = (0, import_utils_node.getProjectPath)(configFilePath);
+      await (0, import_utils_node.runAsync)(`eslint ${lintDir} --ext .ts,.tsx,.js,.jsx --fix --cache --config ${configFile}`);
+      import_utils_node.logger.succeed("eslint 校验通过");
       next(...params);
     } catch (err) {
-      import_utils.logger.fail(`eslint校验未通过：${err}, 请检查代码`);
+      import_utils_node.logger.fail(`eslint校验未通过：${err}, 请检查代码`);
     }
   };
 };

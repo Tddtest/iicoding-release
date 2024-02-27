@@ -22,7 +22,7 @@ __export(npm_pub_after_exports, {
   npmPubAfter: () => npmPubAfter
 });
 module.exports = __toCommonJS(npm_pub_after_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var import_update_version = require("../update-version");
 var npmPubAfter = async (next, params) => {
   try {
@@ -30,7 +30,7 @@ var npmPubAfter = async (next, params) => {
       await (0, import_update_version._updateVersion)(global.updatedPackage);
     }
   } catch (err) {
-    import_utils.logger.fail("发布之后的操作失败，请检查后手动恢复文件");
+    import_utils_node.logger.fail("发布之后的操作失败，请检查后手动恢复文件");
     global.rollbackPackage(err.message);
     return;
   }

@@ -34,25 +34,25 @@ __export(global_register_exports, {
 });
 module.exports = __toCommonJS(global_register_exports);
 var readline = __toESM(require("readline"));
-var import_utils = require("@iicoding/utils");
+var process = __toESM(require("process"));
+var import_utils_node = require("@iicoding/utils-node");
 var import_get_version = require("../get-version");
 var import_update_version = require("../update-version");
-var process = __toESM(require("process"));
 var globalRegister = (next, params) => {
   const pkg = (0, import_get_version.getOriginPackage)();
   const originPackage = JSON.parse(JSON.stringify(pkg));
   global.originPackage = originPackage;
   global.rollbackPackage = async (flowErr = "", callback) => {
-    import_utils.logger.fail({ text: flowErr || "release 流程出错正在回退版本", chalkColor: "red" });
+    import_utils_node.logger.fail({ text: flowErr || "release 流程出错正在回退版本", chalkColor: "red" });
     try {
       const currentPkg = (0, import_get_version.getOriginPackage)();
       const currentPackage = JSON.parse(JSON.stringify(currentPkg));
-      if (currentPackage.version !== originPackage.version) {
+      if (!global.pubSuccess && currentPackage.version !== originPackage.version) {
         await (0, import_update_version._updateVersion)(originPackage);
-        import_utils.logger.succeed({ text: "版本回退成功，您可以尝试重新release", chalkColor: "green" });
+        import_utils_node.logger.succeed({ text: "版本回退成功，您可以尝试重新release", chalkColor: "green" });
       }
     } catch (rollbackErr) {
-      import_utils.logger.fail(`回退版本号出错请手动回退，原版本号为：${originPackage.version}, 错误信息如下：${rollbackErr}`);
+      import_utils_node.logger.fail(`回退版本号出错请手动回退，原版本号为：${originPackage.version}, 错误信息如下：${rollbackErr}`);
     }
     callback == null ? void 0 : callback();
   };
@@ -64,9 +64,9 @@ var registerSigint = () => {
     output: process.stdout
   });
   async function handleInterrupt() {
-    import_utils.logger.stop();
+    import_utils_node.logger.stop();
     global.rollbackPackage("已手动中断程序，若版本已修改，将自动回退版本", () => {
-      import_utils.logger.stop();
+      import_utils_node.logger.stop();
       rl.close();
       setTimeout(() => {
         process.exit();

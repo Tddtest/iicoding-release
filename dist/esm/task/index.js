@@ -7,7 +7,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 import { composeAsync } from '@iicoding/utils';
 import { globalRegister } from "./global-register";
 import { executeEnd } from "./execute-end";
-export * from "./self-task-queue";
+
+// export * from './self-task-queue';
+
 export var composeTaskQueue = function composeTaskQueue(middleware) {
   return composeAsync([globalRegister].concat(_toConsumableArray(middleware), [executeEnd]));
 };

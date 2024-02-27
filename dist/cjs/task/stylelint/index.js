@@ -22,19 +22,19 @@ __export(stylelint_exports, {
   stylelint: () => stylelint
 });
 module.exports = __toCommonJS(stylelint_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var stylelint = (lintFilePath = "./src", configFilePath = "./.stylelint.js") => {
   return async (next, ...params) => {
     try {
-      const lintDir = (0, import_utils.getProjectPath)(lintFilePath);
-      const configFile = (0, import_utils.getProjectPath)(configFilePath);
-      await (0, import_utils.runAsync)(
+      const lintDir = (0, import_utils_node.getProjectPath)(lintFilePath);
+      const configFile = (0, import_utils_node.getProjectPath)(configFilePath);
+      await (0, import_utils_node.runAsync)(
         `stylelint '${lintDir}**/*.less' '${lintDir}/**/*.css' '${lintDir}/**/*.scss' --fix --cache --config ${configFile}`
       );
-      import_utils.logger.succeed("stylelint 校验通过");
+      import_utils_node.logger.succeed("stylelint 校验通过");
       next(...params);
     } catch (err) {
-      import_utils.logger.fail("stylelint 校验未通过, 请检查样式代码：");
+      import_utils_node.logger.fail("stylelint 校验未通过, 请检查样式代码：");
       console.log(err);
     }
   };

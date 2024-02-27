@@ -22,10 +22,10 @@ __export(copy_file_exports, {
   copyFile: () => copyFile
 });
 module.exports = __toCommonJS(copy_file_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var copyFile = (destRoot, projectFileName, src = ["dist", "package.json", "README.md"]) => {
   return async (next, params) => {
-    const promises = src.map((target) => (0, import_utils.copyFileOrDirectory)((0, import_utils.getProjectPath)(target), `${destRoot}/${projectFileName}/${target}`));
+    const promises = src.map((target) => (0, import_utils_node.copyFileOrDirectory)((0, import_utils_node.getProjectPath)(target), `${destRoot}/${projectFileName}/${target}`));
     Promise.all(promises).then(() => next(params)).catch((err) => {
       console.log(err.message);
     });

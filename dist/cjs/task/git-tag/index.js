@@ -22,15 +22,15 @@ __export(git_tag_exports, {
   patchTag: () => patchTag
 });
 module.exports = __toCommonJS(git_tag_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var patchTag = async (next, params) => {
-  import_utils.logger.start({ text: "git tag patch 开始..." });
+  import_utils_node.logger.start({ text: "git tag patch 开始..." });
   try {
     const version = `v${params.version}`;
-    await (0, import_utils.runAsync)(`git tag ${version} && git push origin tag ${version}`);
-    import_utils.logger.succeed("git tag patch 成功");
+    await (0, import_utils_node.runAsync)(`git tag ${version} && git push origin tag ${version}`);
+    import_utils_node.logger.succeed("git tag patch 成功");
   } catch (err) {
-    import_utils.logger.fail(`patch tag failed: ${err}`);
+    import_utils_node.logger.fail(`patch tag failed: ${err}`);
   }
   next(true);
 };

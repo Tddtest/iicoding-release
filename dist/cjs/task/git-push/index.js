@@ -34,13 +34,13 @@ __export(git_push_exports, {
 });
 module.exports = __toCommonJS(git_push_exports);
 var import_inquirer = __toESM(require("inquirer"));
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 async function checkCommit() {
   const { commitMsg } = await import_inquirer.default.prompt([
     {
       type: "string",
       name: "commitMsg",
-      message: `请输入符合 ${import_utils.chalk.green("angular commit")} 规范的 git commit 的信息：`
+      message: `请输入符合 ${import_utils_node.chalk.green("angular commit")} 规范的 git commit 的信息：`
     }
   ]);
   return commitMsg;
@@ -48,32 +48,33 @@ async function checkCommit() {
 function isMathCommit(commitMsg) {
   const isMath = /^(feat|fix|docs|style|refactor|test|chore|perf)(\(.+\))?:\s.+/.test(commitMsg);
   if (!isMath) {
-    throw new Error(import_utils.chalk.red("commit format error(提交格式不符合angular规范)"));
+    throw new Error(import_utils_node.chalk.red("commit format error(提交格式不符合angular规范)"));
   }
 }
 var pushCode = async () => {
   const commitMsg = await checkCommit();
   isMathCommit(commitMsg);
-  import_utils.logger.start({ text: "推送代码至远程仓库 . . ." });
-  const currentBranch = (0, import_utils.runSync)("git symbolic-ref --short HEAD");
-  const isExistCurrentBranch = (0, import_utils.runSync)(`git branch -r | grep -w "origin/${currentBranch}"`);
+  import_utils_node.logger.start({ text: "推送代码至远程仓库 . . ." });
+  const currentBranch = (0, import_utils_node.runSync)("git symbolic-ref --short HEAD");
+  const isExistCurrentBranch = (0, import_utils_node.runSync)(`git branch -r | grep -w "origin/${currentBranch}"`);
   console.log(`\r
-当前推送分支为：${import_utils.chalk.green(isExistCurrentBranch)}`);
-  await (0, import_utils.runAsync)("git add .");
-  await (0, import_utils.runAsync)(`git commit -m "${commitMsg}"`);
+当前推送分支为：${import_utils_node.chalk.green(isExistCurrentBranch)}`);
+  await (0, import_utils_node.runAsync)("git add .");
+  await (0, import_utils_node.runAsync)(`git commit -m "${commitMsg}"`);
   if (!isExistCurrentBranch) {
-    await (0, import_utils.runAsync)(`git push --set-upstream origin ${currentBranch}`);
+    await (0, import_utils_node.runAsync)(`git push --set-upstream origin ${currentBranch}`);
   } else {
-    await (0, import_utils.runAsync)("git push");
+    await (0, import_utils_node.runAsync)("git push");
   }
 };
 var gitPush = async (next, params) => {
   try {
     await pushCode();
-    import_utils.logger.succeed("已推送至远程仓库");
+    import_utils_node.logger.succeed("已推送至远程仓库");
     next(params);
   } catch (error) {
-    params == null ? void 0 : params.failCallback(error);
+    import_utils_node.logger.fail({ text: "push 代码失败, 如未发布则即将进入回退操作" });
+    global.rollbackPackage(error.message);
   }
 };
 // Annotate the CommonJS export names for ESM import in node:

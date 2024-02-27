@@ -22,7 +22,7 @@ __export(npm_pub_before_exports, {
   npmPubBefore: () => npmPubBefore
 });
 module.exports = __toCommonJS(npm_pub_before_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var import_update_version = require("../update-version");
 var import_get_version = require("../get-version");
 var npmPubBefore = (omitPackagesKeysFn, machiningPkg) => {
@@ -43,8 +43,8 @@ var npmPubBefore = (omitPackagesKeysFn, machiningPkg) => {
       try {
         await (0, import_update_version._updateVersion)(record);
       } catch (err) {
-        import_utils.logger.start({ text: " " });
-        import_utils.logger.fail("发布之前的操作失败，请检查，即将自动回退版本");
+        import_utils_node.logger.start({ text: " " });
+        import_utils_node.logger.fail("发布之前的操作失败，请检查，即将自动回退版本");
         global.rollbackPackage(err.message);
         return;
       }

@@ -22,7 +22,7 @@ __export(self_task_queue_exports, {
   gitSubmoduleRelease: () => gitSubmoduleRelease
 });
 module.exports = __toCommonJS(self_task_queue_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var import__ = require("../..");
 var pickKeys = () => {
   return ["devDependencies", "scripts"];
@@ -45,8 +45,8 @@ var getTaskQueue = (targetDir, namespace) => {
     import__.npmAuth,
     (0, import__.npmPubBefore)(pickKeys, machiningPkg),
     import__.npmPub,
-    import__.npmPubAfter,
-    (0, import__.copyFile)((0, import_utils.getProjectPath)(`../../../${targetDir}`), namespace)
+    (0, import__.copyFile)((0, import_utils_node.getProjectPath)(`../../${targetDir}`), namespace),
+    import__.npmPubAfter
     // gitPushOtherProject(getProjectPath('../../../release')),
     // gitPush,
     // patchTag,

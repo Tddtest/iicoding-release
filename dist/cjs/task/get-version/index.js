@@ -35,13 +35,13 @@ __export(get_version_exports, {
 module.exports = __toCommonJS(get_version_exports);
 var import_inc = __toESM(require("semver/functions/inc"));
 var import_inquirer = __toESM(require("inquirer"));
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var getOriginPackage = () => {
   let result = {};
   try {
-    result = JSON.parse((0, import_utils.getFileSync)((0, import_utils.getProjectPath)("package.json")));
+    result = JSON.parse((0, import_utils_node.getFileSync)((0, import_utils_node.getProjectPath)("package.json")));
   } catch (err) {
-    import_utils.logger.fail("获取 package.json 信息失败，请联系此npm包作者");
+    import_utils_node.logger.fail("获取 package.json 信息失败，请联系此npm包作者");
   }
   return result;
 };
@@ -86,7 +86,7 @@ var getNewVersion = async () => {
 };
 var getVersion = async (next, params) => {
   const originVersion = getOriginVersion();
-  import_utils.logger.succeed({ text: `当前版本为：${originVersion}`, chalkColor: "yellow" });
+  import_utils_node.logger.succeed({ text: `当前版本为：${originVersion}`, chalkColor: "yellow" });
   const version = await getNewVersion();
   next({ ...params, version });
 };

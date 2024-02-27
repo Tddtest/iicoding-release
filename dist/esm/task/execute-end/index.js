@@ -1,4 +1,4 @@
-import { logger } from '@iicoding/utils';
+import { logger } from '@iicoding/utils-node';
 export var executeEnd = function executeEnd() {
   logger.start({
     text: ' '

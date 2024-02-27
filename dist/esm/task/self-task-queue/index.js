@@ -4,7 +4,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-import { getProjectPath } from '@iicoding/utils';
+import { getProjectPath } from '@iicoding/utils-node';
 import { build, npmPub, npmAuth, copyFile, getVersion, npmPubAfter, npmPubBefore, updateVersion, composeTaskQueue } from "../..";
 var pickKeys = function pickKeys() {
   return ['devDependencies', 'scripts'];
@@ -21,7 +21,7 @@ var machiningPkg = function machiningPkg(record) {
   return record;
 };
 var getTaskQueue = function getTaskQueue(targetDir, namespace) {
-  return [build, getVersion, updateVersion, npmAuth, npmPubBefore(pickKeys, machiningPkg), npmPub, npmPubAfter, copyFile(getProjectPath("../../../".concat(targetDir)), namespace)
+  return [build, getVersion, updateVersion, npmAuth, npmPubBefore(pickKeys, machiningPkg), npmPub, copyFile(getProjectPath("../../".concat(targetDir)), namespace), npmPubAfter
   // gitPushOtherProject(getProjectPath('../../../release')),
   // gitPush,
   // patchTag,

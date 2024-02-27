@@ -23,10 +23,11 @@ __export(update_version_exports, {
   updateVersion: () => updateVersion
 });
 module.exports = __toCommonJS(update_version_exports);
+var import_utils_node = require("@iicoding/utils-node");
 var import_utils = require("@iicoding/utils");
 var import_get_version = require("../get-version");
 var _updateVersion = async (content) => {
-  return (0, import_utils.updateFile)((0, import_utils.getProjectPath)("package.json"), JSON.stringify(content, null, 2));
+  return (0, import_utils_node.updateFile)((0, import_utils_node.getProjectPath)("package.json"), JSON.stringify(content, null, 2));
 };
 var updateVersion = async (next, params) => {
   if (params == null) {
@@ -38,14 +39,14 @@ var updateVersion = async (next, params) => {
   if (!params.version) {
     throw new Error("未接收到您选择的版本，请重试!");
   }
-  import_utils.logger.start({ text: "正在修改版本号....\r\n", chalkColor: "yellow" });
+  import_utils_node.logger.start({ text: "正在修改版本号....\r\n", chalkColor: "yellow" });
   const pkg = (0, import_get_version.getOriginPackage)();
   const newPkg = { ...pkg, version: params.version };
   try {
     await _updateVersion(newPkg);
-    import_utils.logger.succeed({ text: `修改版本号成功, 新版本号为：${params.version}`, chalkColor: "green" });
+    import_utils_node.logger.succeed({ text: `修改版本号成功, 新版本号为：${params.version}`, chalkColor: "green" });
   } catch (error) {
-    import_utils.logger.fail(`修改版本号出错 ${error.message}`);
+    import_utils_node.logger.fail(`修改版本号出错 ${error.message}`);
   }
   next({ version: params.version });
 };

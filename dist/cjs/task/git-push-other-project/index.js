@@ -22,19 +22,19 @@ __export(git_push_other_project_exports, {
   gitPushOtherProject: () => gitPushOtherProject
 });
 module.exports = __toCommonJS(git_push_other_project_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var gitPushOtherProject = (otherProjectPath) => {
   return async (next, params) => {
-    const selfPath = (0, import_utils.getProjectPath)();
+    const selfPath = (0, import_utils_node.getProjectPath)();
     try {
-      await (0, import_utils.runAsync)(`cd ${otherProjectPath}`);
-      console.log("getProjectPath", (0, import_utils.getProjectPath)());
+      await (0, import_utils_node.runAsync)(`cd ${otherProjectPath}`);
+      console.log("getProjectPath", (0, import_utils_node.getProjectPath)());
       console.log("process", process.cwd());
-      await (0, import_utils.runAsync)("npm run push");
-      await (0, import_utils.runAsync)(selfPath);
+      await (0, import_utils_node.runAsync)("npm run push");
+      await (0, import_utils_node.runAsync)(selfPath);
       next(params);
     } catch (err) {
-      import_utils.logger.fail(`去目标地址：${otherProjectPath} 操作git提交失败，请检查后自行提交, ${err.message}`);
+      import_utils_node.logger.fail(`去目标地址：${otherProjectPath} 操作git提交失败，请检查后自行提交, ${err.message}`);
     }
   };
 };

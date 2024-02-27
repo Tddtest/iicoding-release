@@ -22,17 +22,18 @@ __export(npm_pub_exports, {
   npmPub: () => npmPub
 });
 module.exports = __toCommonJS(npm_pub_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var import_global_register = require("../global-register");
 var npmPub = async (next, params) => {
-  import_utils.logger.start({ text: "正在进行发布操作" });
+  import_utils_node.logger.start({ text: "正在进行发布操作" });
   try {
     (0, import_global_register.registerSigint)();
-    await (0, import_utils.runAsync)("npm publish --access public");
-    import_utils.logger.succeed("发布成功!");
+    await (0, import_utils_node.runAsync)("npm publish --access public");
+    import_utils_node.logger.succeed("发布成功!");
+    global.pubSuccess = true;
     next(params);
   } catch (error) {
-    import_utils.logger.fail({ text: "发布失败即将进入回退操作" });
+    import_utils_node.logger.fail({ text: "发布失败即将进入回退操作" });
     global.rollbackPackage(error.message);
   }
 };

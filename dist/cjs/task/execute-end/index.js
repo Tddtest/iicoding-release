@@ -22,10 +22,10 @@ __export(execute_end_exports, {
   executeEnd: () => executeEnd
 });
 module.exports = __toCommonJS(execute_end_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var executeEnd = () => {
-  import_utils.logger.start({ text: " " });
-  import_utils.logger.succeed("所有 release 任务已全部执行完成");
+  import_utils_node.logger.start({ text: " " });
+  import_utils_node.logger.succeed("所有 release 任务已全部执行完成");
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

@@ -22,15 +22,15 @@ __export(build_project_exports, {
   build: () => build
 });
 module.exports = __toCommonJS(build_project_exports);
-var import_utils = require("@iicoding/utils");
+var import_utils_node = require("@iicoding/utils-node");
 var build = async (next, ...params) => {
-  import_utils.logger.start({ text: "开始构建项目", chalkColor: "magenta" });
+  import_utils_node.logger.start({ text: "开始构建项目", chalkColor: "magenta" });
   try {
-    await (0, import_utils.runAsync)("npm run build");
-    import_utils.logger.succeed("项目构建成功");
+    await (0, import_utils_node.runAsync)("npm run build");
+    import_utils_node.logger.succeed("项目构建成功");
     next(...params);
   } catch (error) {
-    import_utils.logger.fail(`项目构建失败${error}`);
+    import_utils_node.logger.fail(`项目构建失败${error}`);
   }
 };
 // Annotate the CommonJS export names for ESM import in node:

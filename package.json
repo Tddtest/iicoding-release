@@ -1,6 +1,6 @@
 {
   "name": "@iicoding/release",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "main": "dist/cjs/index.js",
   "types": "dist/esm/index.d.ts",
   "module": "dist/esm/index.js",
@@ -11,20 +11,16 @@
     "import": "./dist/esm/index.js",
     "require": "./dist/cjs/index.js"
   },
-  "scripts": {
-    "start:release": "pnpm run release",
-    "release": "ts-node script/release.ts",
-    "build": "pnpm run clean && father build",
-    "clean": "rimraf dist",
-    "rmn": "rimraf node_modules"
-  },
   "dependencies": {
-    "@iicoding/utils": "0.0.34",
+    "@iicoding/utils": "0.0.39",
+    "@iicoding/utils-node": "0.0.3",
     "inquirer": "^8.2.0",
     "semver": "^7.5.4"
   },
+  "scripts": {
+    "push": "node script.js"
+  },
   "devDependencies": {
-    "@types/inquirer": "^9.0.7",
-    "@types/semver": "7.5.7"
+    "@iicoding/release": "latest"
   }
 }

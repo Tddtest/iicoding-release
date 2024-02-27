@@ -3,7 +3,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 import inquirer from 'inquirer';
-import { logger, runAsync, runSync, chalk } from '@iicoding/utils';
+import { logger, runAsync, runSync, chalk } from '@iicoding/utils-node';
 function checkCommit() {
   return _checkCommit.apply(this, arguments);
 }
@@ -102,13 +102,16 @@ export var gitPush = /*#__PURE__*/function () {
         case 3:
           logger.succeed('已推送至远程仓库');
           next(params);
-          _context2.next = 10;
+          _context2.next = 11;
           break;
         case 7:
           _context2.prev = 7;
           _context2.t0 = _context2["catch"](0);
-          params === null || params === void 0 || params.failCallback(_context2.t0);
-        case 10:
+          logger.fail({
+            text: 'push 代码失败, 如未发布则即将进入回退操作'
+          });
+          global.rollbackPackage(_context2.t0.message);
+        case 11:
         case "end":
           return _context2.stop();
       }
